@@ -333,7 +333,7 @@ void Recorder::updateFilenames() {
 void Recorder::snapshotTrigger(std_msgs::Empty::ConstPtr trigger) {
     updateFilenames();
     
-    ROS_INFO("Triggered snapshot recording with name %s.", target_filename_.c_str());
+    ROS_INFO("Triggered snapshot recording with name %s", target_filename_.c_str());
     
     {
         boost::mutex::scoped_lock lock(queue_mutex_);
@@ -357,11 +357,11 @@ void Recorder::startWriting() {
         exit_code_ = 1;
         ros::shutdown();
     }
-    ROS_INFO("Recording to %s.", target_filename_.c_str());
+    ROS_INFO("Recording to %s", target_filename_.c_str());
 }
 
 void Recorder::stopWriting() {
-    ROS_INFO("Closing %s.", target_filename_.c_str());
+    ROS_INFO("Closing %s", target_filename_.c_str());
     bag_.close();
     rename(write_filename_.c_str(), target_filename_.c_str());
 }
@@ -583,12 +583,12 @@ bool Recorder::checkDisk() {
     unsigned long long free_space = 0;
     free_space = (unsigned long long) (fiData.f_bsize) * (unsigned long long) (fiData.f_bavail);
     if (free_space < 1073741824ull) {
-        ROS_ERROR("Less than 1GB of space free on disk with %s.  Disabling recording.", bag_.getFileName().c_str());
+        ROS_ERROR("Less than 1GB of space free on disk with %s .  Disabling recording.", bag_.getFileName().c_str());
         writing_enabled_ = false;
         return false;
     }
     else if (free_space < 5368709120ull) {
-        ROS_WARN("Less than 5GB of space free on disk with %s.", bag_.getFileName().c_str());
+        ROS_WARN("Less than 5GB of space free on disk with %s", bag_.getFileName().c_str());
     }
     else {
         writing_enabled_ = true;
